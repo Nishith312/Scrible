@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "647190837112",
+    "firebase_url": "https://scribble-fc41d-default-rtdb.firebaseio.com",
+    "project_id": "scribble-fc41d",
+    "storage_bucket": "scribble-fc41d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647190837112:android:e6770059e2462845db3a8d",
+        "android_client_info": {
+          "package_name": "com.scriblenotes.scrible_notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB15KgRaTsjQyecgmJLuhfFRD5f0EsZqE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
