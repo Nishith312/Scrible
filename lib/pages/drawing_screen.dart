@@ -1,23 +1,22 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
 import 'package:provider/provider.dart';
+import 'package:scrible_notes/model/drawing_model.dart';
 import 'package:scrible_notes/pages/triangle_draw.dart';
 import 'package:scrible_notes/provider/list_provider.dart';
-import 'package:scrible_notes/model/drawing_model.dart';
 
 class DrawingPage extends StatefulWidget {
   final int index;
 
   const DrawingPage({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   State<DrawingPage> createState() => _MyHomePageState();
@@ -25,11 +24,8 @@ class DrawingPage extends StatefulWidget {
 
 class _MyHomePageState extends State<DrawingPage> {
   final DrawingController _drawingController = DrawingController();
-// create some values
   Color pickerColor = Colors.cyan;
   Color currentColor = Colors.purple;
-
-// ValueChanged<Color> callback
   void changeColor(Color color) {
     setState(() => pickerColor = color);
   }
@@ -40,15 +36,17 @@ class _MyHomePageState extends State<DrawingPage> {
       if (mounted) {
         setInitData(Provider.of<DrawingProvider>(context, listen: false));
 
-        if (!Platform.isAndroid && !Platform.isIOS) {
+        if (kIsWeb) {
           FirebaseDatabase.instance
               .ref("DrawingData")
               .child((widget.index + 1).toString())
               .onValue
               .listen((event) {
-            var snapshot = event.snapshot.value as Map;
-            Provider.of<DrawingProvider>(context, listen: false)
-                .getModel(widget.index, DrawingModel.fromJson(snapshot));
+            if (mounted) {
+              var snapshot = event.snapshot.value as Map;
+              Provider.of<DrawingProvider>(context, listen: false)
+                  .getModel(widget.index, DrawingModel.fromJson(snapshot));
+            }
           });
         }
       }
